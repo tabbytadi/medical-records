@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h2>Diagnosis</h2>
+    <a href="/diagnosis/create-diagnosis" class="btn btn-primary mb-3">Create New Diagnosis</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="diagnosis : ${diagnosis}">
+            <td th:text="${diagnosis.code}"></td>
+            <td th:text="${diagnosis.name}"></td>
+            <td th:text="${diagnosis.description}"></td>
+            <td>
+                <a th:href="@{/diagnosis/edit-diagnosis/{id}(id=${diagnosis.id})}"
+                   class="btn btn-sm btn-info">Edit</a>
+                <a th:href="@{/diagnosis/delete/{id}(id=${diagnosis.id})}"
+                   class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

@@ -135,6 +135,6 @@ public class ExaminationViewController {
     private void populateDropdowns(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
         model.addAttribute("doctors", doctorService.getAllDoctors());
-        model.addAttribute("diagnoses", diagnosisService.getAllDiagnoses());
+        model.addAttribute("diagnoses", diagnosisService.getAllDiagnosis());
     }
 }

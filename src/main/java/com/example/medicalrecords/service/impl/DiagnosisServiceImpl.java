@@ -14,7 +14,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     private final DiagnosisRepository diagnosisRepository;
 
     @Override
-    public List<Diagnosis> getAllDiagnoses() {
+    public List<Diagnosis> getAllDiagnosis() {
         return diagnosisRepository.findAll();
     }
 
@@ -50,7 +50,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public List<Diagnosis> searchDiagnoses(String query) {
+    public List<Diagnosis> searchDiagnosis(String query) {
         return diagnosisRepository.findByNameContainingIgnoreCaseOrCodeContainingIgnoreCase(query, query);
     }
 }
