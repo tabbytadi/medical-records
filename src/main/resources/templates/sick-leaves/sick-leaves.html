@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h2>Sick Leaves</h2>
+    <a href="/sick-leaves/create-sick-leave" class="btn btn-primary mb-3">Create New Sick Leave</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Examination ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Duration (Days)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sl : ${sickLeaves}">
+            <td th:text="${sl.examinationId}"></td>
+            <td th:text="${#temporals.format(sl.startDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#temporals.format(sl.endDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${sl.durationDays}"></td>
+            <td>
+                <a th:href="@{/sick-leaves/edit-sick-leave/{id}(id=${sl.id})}"
+                   class="btn btn-sm btn-info">Edit</a>
+                <a th:href="@{/sick-leaves/delete/{id}(id=${sl.id})}"
+                   class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
