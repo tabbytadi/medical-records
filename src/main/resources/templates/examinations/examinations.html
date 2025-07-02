@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h2>Examinations</h2>
+    <a href="/examinations/create-examination" class="btn btn-primary mb-3">Add New Examination</a>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <select class="form-select" id="filterDoctor">
+                <option value="">Filter by Doctor</option>
+                <option th:each="doctor : ${doctors}"
+                        th:value="${doctor.id}"
+                        th:text="${doctor.firstName + ' ' + doctor.lastName}">
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select" id="filterPatient">
+                <option value="">Filter by Patient</option>
+                <option th:each="patient : ${patients}"
+                        th:value="${patient.id}"
+                        th:text="${patient.firstName + ' ' + patient.lastName}">
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div th:if="${examinations.empty}" class="alert alert-info">
+        No examinations found in the system.
+    </div>
+
+    <table th:unless="${examinations.empty}" class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Diagnosis</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${examinations}">
+            <td th:text="${#temporals.format(exam.examinationDate, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${exam.patient.firstName + ' ' + exam.patient.lastName}"></td>
+            <td th:text="${exam.doctor.firstName + ' ' + exam.doctor.lastName}"></td>
+            <td th:text="${exam.diagnosis.name + ' (' + exam.diagnosis.code + ')'}"></td>
+            <td>
+                <a th:href="@{/examinations/edit-examination/{id}(id=${exam.id})}"
+                   class="btn btn-sm btn-info">Edit</a>
+                <a th:href="@{/examinations/delete/{id}(id=${exam.id})}"
+                   class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

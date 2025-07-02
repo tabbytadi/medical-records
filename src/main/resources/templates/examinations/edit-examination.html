@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h2>Edit Examination</h2>
+
+    <form th:action="@{/examinations/update/{id}(id=${examination.id})}" th:object="${examination}" method="post" class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Patient</label>
+            <input type="text" class="form-control"
+                   th:value="${examination.patient.firstName + ' ' + examination.patient.lastName}" readonly>
+            <input type="hidden" th:field="*{patientId}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Doctor</label>
+            <input type="text" class="form-control"
+                   th:value="${examination.doctor.firstName + ' ' + examination.doctor.lastName}" readonly>
+            <input type="hidden" th:field="*{doctorId}">
+        </div>
+
+        <div class="mb-3">
+            <label for="examinationDate" class="form-label">Examination Date</label>
+            <input type="datetime-local" class="form-control" id="examinationDate"
+                   th:field="*{examinationDate}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="diagnosis" class="form-label">Diagnosis</label>
+            <select class="form-select" id="diagnosis" th:field="*{diagnosisId}" required>
+                <option th:each="diagnosis : ${diagnoses}"
+                        th:value="${diagnosis.id}"
+                        th:selected="${diagnosis.id == examination.diagnosis.id}"
+                        th:text="${diagnosis.name + ' (' + diagnosis.code + ')'}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" th:field="*{notes}" rows="3"></textarea>
+        </div>
+
+        <div class="card mb-3" th:if="${examination.prescription != null}">
+            <div class="card-header">Prescription</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="medicineName" class="form-label">Medicine Name</label>
+                    <input type="text" class="form-control" id="medicineName"
+                           th:field="*{prescription.medicineName}">
+                </div>
+                <div class="mb-3">
+                    <label for="dosage" class="form-label">Dosage</label>
+                    <input type="text" class="form-control" id="dosage"
+                           th:field="*{prescription.dosage}">
+                </div>
+                <div class="mb-3">
+                    <label for="durationDays" class="form-label">Duration (Days)</label>
+                    <input type="number" class="form-control" id="durationDays"
+                           th:field="*{prescription.durationDays}">
+                </div>
+                <div class="mb-3">
+                    <label for="instructions" class="form-label">Instructions</label>
+                    <textarea class="form-control" id="instructions"
+                              th:field="*{prescription.instructions}" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3" th:if="${examination.sickLeave != null}">
+            <div class="card-header">Sick Leave</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate"
+                           th:field="*{sickLeave.startDate}">
+                </div>
+                <div class="mb-3">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate"
+                           th:field="*{sickLeave.endDate}">
+                </div>
+                <div class="mb-3">
+                    <label for="daysCount" class="form-label">Days Count</label>
+                    <input type="number" class="form-control" id="daysCount"
+                           th:field="*{sickLeave.daysCount}">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Examination</button>
+        <a th:href="@{/examinations}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

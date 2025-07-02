@@ -1,0 +1,34 @@
+---- Insert sample doctors
+--INSERT INTO doctors (first_name, last_name, license_number, specialty, is_gp) VALUES
+--('Ivan', 'Ivanov', 'MD12345', 'Cardiology', true),
+--('Maria', 'Petrova', 'MD67890', 'Pediatrics', true),
+--('Georgi', 'Dimitrov', 'MD54321', 'Neurology', false);
+--
+---- Insert sample patients
+--INSERT INTO patients (first_name, last_name, egn, has_insurance, gp_doctor_id) VALUES
+--('Petar', 'Stoyanov', '8001011234', true, 1),
+--('Elena', 'Georgieva', '9002025678', true, 2),
+--('Dimitar', 'Popov', '7503039012', false, 1);
+--
+---- Insert sample diagnoses
+--INSERT INTO diagnoses (code, name, description) VALUES
+--('I10', 'Essential hypertension', 'Primary high blood pressure'),
+--('J18.9', 'Pneumonia, unspecified', 'Lung inflammation'),
+--('M54.5', 'Low back pain', 'Pain in lumbar region');
+--
+---- Insert sample examinations
+--INSERT INTO examinations (patient_id, doctor_id, examination_date, diagnosis_id, notes) VALUES
+--(1, 1, '2023-05-15 09:30:00', 1, 'Patient complains of high blood pressure'),
+--(2, 2, '2023-06-20 11:15:00', 2, 'Fever and cough present'),
+--(3, 1, '2023-07-10 14:00:00', 3, 'Acute lower back pain');
+--
+---- Insert sample prescriptions
+--INSERT INTO prescriptions (examination_id, medicine_name, dosage, duration_days, instructions) VALUES
+--(1, 'Amlodipine', '5mg once daily', 30, 'Take in the morning'),
+--(2, 'Azithromycin', '500mg once daily', 7, 'Take before meals'),
+--(3, 'Ibuprofen', '400mg three times daily', 10, 'Take after meals');
+--
+---- Insert sample sick leaves
+--INSERT INTO sick_leaves (examination_id, start_date, end_date, days_count) VALUES
+--(2, '2023-06-20', '2023-06-27', 7),
+--(3, '2023-07-10', '2023-07-20', 10);

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h2>Create New Patient</h2>
+
+    <form th:action="@{/patients/create}" th:object="${patient}" method="post" class="col-md-6">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="egn" class="form-label">EGN</label>
+            <input type="text" class="form-control" id="egn" th:field="*{egn}" required>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="hasInsurance" th:field="*{hasInsurance}">
+            <label class="form-check-label" for="hasInsurance">Has Insurance</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="gpDoctor" class="form-label">GP Doctor</label>
+            <select class="form-select" id="gpDoctor" th:field="*{gpDoctorId}">
+                <option value="">-- Select GP Doctor --</option>
+                <option th:each="doctor : ${doctors}"
+                        th:value="${doctor.id}"
+                        th:text="${doctor.firstName + ' ' + doctor.lastName + ' (' + doctor.specialty + ')'}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Patient</button>
+        <a href="/patients" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

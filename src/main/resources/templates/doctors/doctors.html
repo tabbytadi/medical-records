@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h2>Doctors</h2>
+    <a href="/doctors/create-doctor" class="btn btn-primary mb-3">Add New Doctor</a>
+
+    <div th:if="${doctors.empty}" class="alert alert-info">
+        No doctors found in the system.
+    </div>
+
+    <table th:unless="${doctors.empty}" class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>License</th>
+            <th>Specialty</th>
+            <th>GP</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="doctor : ${doctors}">
+            <td th:text="${doctor.firstName + ' ' + doctor.lastName}"></td>
+            <td th:text="${doctor.licenseNumber}"></td>
+            <td th:text="${doctor.specialty}"></td>
+            <td th:text="${doctor.isGp ? 'Yes' : 'No'}"></td>
+            <td>
+                <a th:href="@{/doctors/edit-doctor/{id}(id=${doctor.id})}"
+                   class="btn btn-sm btn-info">Edit</a>
+                <a th:href="@{/doctors/delete/{id}(id=${doctor.id})}"
+                   class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

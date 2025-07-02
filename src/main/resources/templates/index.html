@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="container mt-4">
+    <h1 th:text="'Welcome to ' + ${welcome}"></h1>
+    <p class="lead">Manage medical records efficiently and securely</p>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
