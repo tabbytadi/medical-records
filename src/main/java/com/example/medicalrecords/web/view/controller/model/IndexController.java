@@ -11,9 +11,8 @@ public class IndexController {
 
     @GetMapping("/")
     public String getIndex(Model model) {
-        final String welcomeMessage = "our digital medical records!";
+        final String welcomeMessage = "Our digital medical records!";
         model.addAttribute("welcome", welcomeMessage);
         return "index";
     }
-
 }
