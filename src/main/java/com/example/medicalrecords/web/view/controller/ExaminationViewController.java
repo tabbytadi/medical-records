@@ -34,11 +34,8 @@ public class ExaminationViewController {
             model.addAttribute("examinations", examinations);
             return "examinations/examinations";
         } catch (Exception e) {
-            // Log the error for debugging
-            e.printStackTrace();
-            // You might want to add an error message to the model
-            model.addAttribute("error", "Failed to load examinations");
-            return "error"; // Make sure you have an error.html template
+            model.addAttribute("error", "Error loading examinations: " + e.getMessage());
+            return "error";
         }
     }
 
@@ -100,23 +97,40 @@ public class ExaminationViewController {
     }
 
     private ExaminationViewModel convertToViewModel(Examination examination) {
-        ExaminationViewModel viewModel = mapperUtil.getModelMapper().map(examination, ExaminationViewModel.class);
-        viewModel.setPatientId(examination.getPatient().getId());
-        viewModel.setPatientName(examination.getPatient().getFirstName() + " " + examination.getPatient().getLastName());
-        viewModel.setDoctorId(examination.getDoctor().getId());
-        viewModel.setDoctorName(examination.getDoctor().getFirstName() + " " + examination.getDoctor().getLastName());
-        viewModel.setDiagnosisId(examination.getDiagnosis().getId());
-        viewModel.setDiagnosisName(examination.getDiagnosis().getName());
+        ExaminationViewModel viewModel = new ExaminationViewModel();
 
-        if (examination.getPrescription() != null) {
-            viewModel.setPrescription(mapperUtil.getModelMapper().map(examination.getPrescription(), PrescriptionViewModel.class));
+        // Basic fields
+        viewModel.setId(examination.getId());
+        viewModel.setExaminationDate(examination.getExaminationDate());
+        viewModel.setNotes(examination.getNotes());
+
+        // Patient mapping
+        if (examination.getPatient() != null) {
+            viewModel.setPatientId(examination.getPatient().getId());
+            viewModel.setPatientName(
+                    examination.getPatient().getFirstName() + " " +
+                            examination.getPatient().getLastName()
+            );
         }
-        if (examination.getSickLeave() != null) {
-            viewModel.setSickLeave(mapperUtil.getModelMapper().map(examination.getSickLeave(), SickLeaveViewModel.class));
+
+        // Doctor mapping
+        if (examination.getDoctor() != null) {
+            viewModel.setDoctorId(examination.getDoctor().getId());
+            viewModel.setDoctorName(
+                    examination.getDoctor().getFirstName() + " " +
+                            examination.getDoctor().getLastName()
+            );
+        }
+
+        // Diagnosis mapping
+        if (examination.getDiagnosis() != null) {
+            viewModel.setDiagnosisId(examination.getDiagnosis().getId());
+            viewModel.setDiagnosisName(examination.getDiagnosis().getName());
         }
 
         return viewModel;
     }
+
 
     private void populateDropdowns(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());

@@ -21,7 +21,7 @@ public class ExaminationViewModel {
     private Long doctorId;
     private String doctorName;
 
-    @NotNull(message = "Examination date is required")
+    @NotNull(message = "Date is required")
     private LocalDateTime examinationDate;
 
     @NotNull(message = "Diagnosis is required")
@@ -30,7 +30,4 @@ public class ExaminationViewModel {
 
     @NotBlank(message = "Notes cannot be blank")
     private String notes;
-
-    private PrescriptionViewModel prescription;
-    private SickLeaveViewModel sickLeave;
 }

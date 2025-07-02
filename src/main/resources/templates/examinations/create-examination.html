@@ -44,7 +44,7 @@
                 <option value="">-- Select Diagnosis --</option>
                 <option th:each="diagnosis : ${diagnoses}"
                         th:value="${diagnosis.id}"
-                        th:text="${diagnosis.code + ' - ' + diagnosis.name}"></option>
+                        th:text="${diagnosis.name}"></option>
             </select>
             <span class="text-danger" th:if="${#fields.hasErrors('diagnosisId')}"
                   th:errors="*{diagnosisId}"></span>
